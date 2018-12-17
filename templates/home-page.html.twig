@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <table class="table">
+            <thead>
+            <tr>
+                <th colspan="2">Description</th>
+                <th>Status</th>
+                <th>Finish before</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr class="{{ task.isDone ? 'done' }}">
+                    <td><input class="finish-check" type="checkbox" {{ task.isDone ? 'checked disabled' }} value="{{ task.taskId }}" /></td>
+                    <td><a href="/task/{{ task.taskId }}/edit" class="task-link">{{ task.description }}</a></td>
+                    <td>{{ task.status }}</td>
+                    <td>{{ task.dueDate ? task.dueDate|date("M d, h:i a") }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {% include 'elements/_modal.html.twig' %}
+
+    {{ parent() }}
+    
+    <script>
+        (function ($) {
+            $('.finish-check').on('change', function (e) {
+                var $element = $(this);
+                var taskId = $element.val();
+
+                window.location.href = "/task/" + taskId + "/finish";
+            });
+
+            $('.task-link').on('click', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $('#edit-modal-content').load(url);
+
+                $('#edit-modal').modal('toggle');
+
+            });
+
+            $('#save-changes').on('click', function () {
+                $('#edit-form').submit();
+            })
+        })(jQuery);
+    </script>
+{% endblock %}

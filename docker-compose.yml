@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  php:
+    depends_on:
+      - mysql
+    image: fsilva/php:7.2
+    ports:
+      - 80
+    volumes:
+      - ./:/var/www/app
+    environment:
+      - USE_XDEBUG=yes
+      - WEBROOT=public
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=just-a-secret
+      - MYSQL_DATABASE=my_tasks
+      - MYSQL_USER=tasks-user
+      - MYSQL_PASSWORD=1234567

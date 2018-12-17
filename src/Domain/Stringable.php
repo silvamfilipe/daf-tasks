@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fsilva
- * Date: 15-11-2018
- * Time: 9:24
- */
 
 namespace App\Domain;
 
@@ -12,4 +6,10 @@ namespace App\Domain;
 interface Stringable
 {
 
+    /**
+     * Sends out a text version of this object
+     *
+     * @return string
+     */
+    public function __toString();
 }

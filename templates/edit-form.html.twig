@@ -1,0 +1,11 @@
+<form id="edit-form" action="/task/{{ task.taskId }}/edit" method="post">
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" name="description" class="form-control" id="description" value="{{ task.description }}">
+    </div>
+
+    <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input type="datetime-local" value="{{ task.dueDate }}" name="dueDate" />
+    </div>
+</form>
